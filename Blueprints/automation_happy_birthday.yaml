@@ -1,0 +1,71 @@
+blueprint:
+  name: Happy Birthday - {{name}}
+  description: Rotina para desejar um feliz aniversário com mensagem, e música!
+  domain: automation
+  input:
+	birthday:
+	  Name: Birthday
+	  description: Informar a Data do Nascimento (Caso não saiba o ano, pode ser qualquer um! O que importa é o mês e o dia)
+	  selector:
+	    date: null
+    name:
+      name: Name
+      description: Nome do(a) aniversariante
+	  selector:
+        text: null
+	time_to_advertise:
+	  Name: Time to Advertise
+	  description: A hora em que deverá ser disparada a rotina no dia do aniversário
+	  selector:
+	    time: null
+	message:
+	  Name: Message
+	  selector:
+        text: null
+	  description: Texto da mensagem a ser falada pela Echo selecionada
+    targetArray:
+      selector:
+        entity:
+          filter:
+            - integration: alexa_media
+              domain: media_player
+          multiple: true
+
+trigger:
+  - platform: template
+    value_template: >-
+      {{ iif(as_timestamp(now())|timestamp_custom("%d-%m") == '11-05', true,
+      false) }}
+  - platform: time
+    at: "09:00:00"
+
+action:
+  - service: script.alexa_play_sound_trumpet_bugle_04
+    data:
+      targetArray:
+        - media_player.echo_4
+        - media_player.echo_sala
+        - media_player.echo_kaka
+        - media_player.echo_gigi
+        - media_player.echo_rose
+        - media_player.echo_andre
+      volume: 1
+      times: 2
+  - service: script.alexa_speak_message
+    data:
+      message: Booooom dia princesinha! Feliz Aniversário lindona!
+      type: tts
+      targetArray:
+        - media_player.echo_4
+        - media_player.echo_sala
+        - media_player.echo_kaka
+        - media_player.echo_gigi
+        - media_player.echo_rose
+        - media_player.echo_andre
+      volume: 1
+      duration: 8
+  - service: script.alexa_command_restore_volumes
+    data:
+      previousVolumes: "{{ state_attr('sensor.alexas_with_volume', 'list') }}"
+icon: mdi:cake-variant-outline
+mode: single
