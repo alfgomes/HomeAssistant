@@ -3,27 +3,29 @@ blueprint:
   description: Rotina para desejar um feliz aniversário com mensagem, e música!
   domain: automation
   input:
-	birthday:
-	  Name: Birthday
-	  description: Informar a Data do Nascimento (Caso não saiba o ano, pode ser qualquer um! O que importa é o mês e o dia)
-	  selector:
-	    date: null
+    birthday:
+      name: Birthday
+      description: Informar a Data do Nascimento (Caso não saiba o ano, pode ser qualquer um! O que importa é o mês e o dia)
+      selector:
+        date: null
     name:
       name: Name
       description: Nome do(a) aniversariante
 	  selector:
         text: null
-	time_to_advertise:
-	  Name: Time to Advertise
-	  description: A hora em que deverá ser disparada a rotina no dia do aniversário
-	  selector:
-	    time: null
-	message:
-	  Name: Message
-	  selector:
+    time_to_advertise:
+      name: Time to Advertise
+      description: A hora em que deverá ser disparada a rotina no dia do aniversário
+      selector:
+        time: null
+    message:
+      name: Message
+      description: Texto da mensagem a ser falada pela Echo selecionada
+      selector:
         text: null
-	  description: Texto da mensagem a ser falada pela Echo selecionada
     targetArray:
+      name: Echo List
+      description: Lista com Echos que tocarão a mensagem e a música
       selector:
         entity:
           filter:
