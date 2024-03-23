@@ -1,5 +1,5 @@
 blueprint:
-  name: Happy Birthday - "{{name}}"
+  name: Happy Birthday - {{name}}
   description: Rotina para desejar um feliz aniversário com mensagem, e música!
   domain: automation
   input:
@@ -36,34 +36,25 @@ blueprint:
 trigger:
   - platform: template
     value_template: >-
-      {{ iif(as_timestamp(now())|timestamp_custom("%d-%m") == '11-05', true,
+      {{ iif(as_timestamp(now())|timestamp_custom("%d-%m") == as_timestamp(birthday)|timestamp_custom("%d-%m"), true,
       false) }}
   - platform: time
-    at: "09:00:00"
+    at: "{{ time_to_advertise }}"
 
 action:
   - service: script.alexa_play_sound_trumpet_bugle_04
     data:
       targetArray:
-        - media_player.echo_4
-        - media_player.echo_sala
-        - media_player.echo_kaka
-        - media_player.echo_gigi
-        - media_player.echo_rose
-        - media_player.echo_andre
+        "{{ targetArray }}"
       volume: 1
       times: 2
   - service: script.alexa_speak_message
     data:
-      message: Booooom dia princesinha! Feliz Aniversário lindona!
+      message: >
+        "{{ message }}"
       type: tts
-      targetArray:
-        - media_player.echo_4
-        - media_player.echo_sala
-        - media_player.echo_kaka
-        - media_player.echo_gigi
-        - media_player.echo_rose
-        - media_player.echo_andre
+      targetArray: >
+        "{{ targetArray }}"
       volume: 1
       duration: 8
   - service: script.alexa_command_restore_volumes
