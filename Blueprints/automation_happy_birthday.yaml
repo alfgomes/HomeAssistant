@@ -47,8 +47,8 @@ action:
   - service: system_log.write
     data_template:
       message: |-
-        birthday: {{ as_timestamp("{{ birthday }}"|as_datetime)|timestamp_custom("%d-%m") }}
-        advertiseTime: {{ as_timestamp(strptime('18:05:55', '%H:%M:%S'))|timestamp_custom("%H:%M:00") }}
+        birthday: "{{ birthday }}"
+        advertiseTime: "{{ timeAdvertise }}"
       level: warning
     enabled: true
   - service: script.alexa_play_sound_trumpet_bugle_04
