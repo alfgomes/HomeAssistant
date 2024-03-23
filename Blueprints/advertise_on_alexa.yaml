@@ -1,0 +1,54 @@
+blueprint:
+  name: Advertise on Alexa
+  description: Advertises on all selected Echos
+  domain: script
+mode: queued
+fields:
+  message:
+    selector:
+      text: null
+    name: Message
+    description: What to advertise?
+    required: true
+  targetArray:
+    selector:
+      entity:
+        filter:
+          - integration: alexa_media
+            domain: media_player
+        multiple: true
+    name: Where to Advertise
+    required: true
+    default: []
+    description: Choose Alexas
+  volume:
+    selector:
+      number:
+        min: 0.1
+        max: 1
+        step: 0.1
+    default: 0.9
+    name: Volume
+    description: Choose ad volume (default 90%)
+sequence:
+  - service: script.alexa_adjust_volume
+    data:
+      volume: "{{ volume }}"
+      targetArray: "{{ targetArray }}"
+  - service: notify.alexa_media
+    data:
+      message: >
+        {{ message }}
+      data:
+        type: announce
+      target: "{{ targetArray }}"
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 10
+      milliseconds: 0
+  - service: script.alexa_command_restore_volumes
+    data:
+      previousVolumes: >-
+        {{ state_attr('sensor.alexas_with_volume', 'list') }}
+icon: mdi:bullhorn
