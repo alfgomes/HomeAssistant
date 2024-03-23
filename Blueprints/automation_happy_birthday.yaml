@@ -1,5 +1,5 @@
 blueprint:
-  name: Happy Birthday - {{name}}
+  name: Happy Birthday - "{{name}}"
   description: Rotina para desejar um feliz aniversário com mensagem, e música!
   domain: automation
   input:
@@ -69,5 +69,4 @@ action:
   - service: script.alexa_command_restore_volumes
     data:
       previousVolumes: "{{ state_attr('sensor.alexas_with_volume', 'list') }}"
-icon: mdi:cake-variant-outline
 mode: single
