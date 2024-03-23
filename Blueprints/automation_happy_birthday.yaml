@@ -36,7 +36,7 @@ blueprint:
 trigger:
   - platform: template
     value_template: >-
-      {{ iif(as_timestamp(now())|timestamp_custom("%d-%m") == as_timestamp(birthday)|timestamp_custom("%d-%m"), true,
+      {{ iif(as_timestamp(now())|timestamp_custom("%d-%m") == as_timestamp("{{ birthday }}"|as_datetime)|timestamp_custom("%d-%m"), true,
       false) }}
   - platform: time
     at: "{{ time_to_advertise }}"
