@@ -11,7 +11,7 @@ blueprint:
     name:
       name: Name
       description: Nome do(a) aniversariante
-	  selector:
+      selector:
         text: null
     time_to_advertise:
       name: Time to Advertise
