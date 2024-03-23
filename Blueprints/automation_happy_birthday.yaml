@@ -40,7 +40,7 @@ trigger:
       false) }}
   - platform: template
     value_template: >-
-      {{ iif(as_timestamp(now())|timestamp_custom("%H:%M:00") == as_timestamp(strptime('18:05:55', '%H:%M:%S'))|timestamp_custom("%H:%M:00"), true,
+      {{ iif(as_timestamp(now())|timestamp_custom("%H:%M:00") == as_timestamp(strptime('18:05:55', '%H:%M:%S'))|timestamp_custom("%H:%M:00")|default(strptime('08:00:00', '%H:%M:%S')), true,
       false) }}
 
 action:
