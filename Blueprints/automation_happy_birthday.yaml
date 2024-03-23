@@ -1,5 +1,5 @@
 blueprint:
-  name: Happy Birthday - {{name}}
+  name: Happy Birthday - [NAME OF THE BIRTHDAY PERSON]
   description: Rotina para desejar um feliz aniversário com mensagem, e música!
   domain: automation
   input:
